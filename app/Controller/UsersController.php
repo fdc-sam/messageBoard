@@ -33,20 +33,20 @@ class UsersController extends AppController {
 			$this->redirect($this->Auth->redirect());
 		}else{
 			if($this->request->is('post')&&!empty($this->request->data)) {
-	      App::Import('Utility', 'Validation');
+					App::Import('Utility', 'Validation');
 
-	      if( isset($this->data['User']['username']) && Validation::email($this->request->data['User']['username'])) {
-	        $this->request->data['User']['email'] = $this->request->data['User']['username'];
-	        $this->Auth->authenticate['Form'] = array('fields' => array('username' => 'email'));
-	      }
+				if( isset($this->data['User']['username']) && Validation::email($this->request->data['User']['username'])) {
+					$this->request->data['User']['email'] = $this->request->data['User']['username'];
+					$this->Auth->authenticate['Form'] = array('fields' => array('username' => 'email'));
+				}
 
-	      if($this->Auth->login()) {
-	        $this->redirect($this->Auth->redirect()); /* login successful */
-	      } else {
-	        /* login unsuccessful */
+				if($this->Auth->login()) {
+					$this->redirect($this->Auth->redirect()); /* login successful */
+				} else {
+				/* login unsuccessful */
 					$this->Flash->set('The user could not be save. Please try again');
-	      }
-	    }
+				}
+			}
 		}
 	}
 
